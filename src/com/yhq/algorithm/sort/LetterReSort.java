@@ -125,6 +125,7 @@ public class LetterReSort {
         preMap.put(fisrt, i);
         afterMap.put(last, l);
         i++;
+
         do {
             System.out.println(i+":"+l);
             char after = chs[l];
