@@ -45,7 +45,11 @@ public class MSDRadixSort implements IRadixSort{
     /**
      * MSD
      * @param array 字符串数组a
+     * @param aux 辅助字符串数组
      * @param R 分组个数R
+     * @param lo 起始下标
+     * @param hi 终止下标
+     * @param d 当前处理的字符数组下标
      */
     public void sort(String[] array,  String[] aux ,int R,int lo,int hi,int d) {
         if(hi <= lo)return;
