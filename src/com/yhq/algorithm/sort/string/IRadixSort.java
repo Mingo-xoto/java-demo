@@ -44,6 +44,35 @@ public interface IRadixSort {
         System.out.println("------end log sort dealing process----");
     }
 
+    /**
+     * 打印处理日志
+     * @Author : YHQ
+     * @Date: 14:19 2019/2/14
+     *
+     */
+    default void log(int R, int[] count) {
+        System.out.println("\n------start log current sort result----");
+        System.out.print("    i:\t");
+        for(int l = 0;l < R;++l){
+            if(count[l] > 0){
+                System.out.print(String.format("%c(%d) ",(char)(l-1),l));
+            }
+        }
+        System.out.print("\ncount:\t");
+        for(int i = 0;i < count.length;++i){
+            if(count[i] > 0) {
+                int len = (i+"").length()+3;
+                int len2 = (count[i]+"").length();
+                StringBuilder sb = new StringBuilder(" ");
+                for (int h = len2;h < len;++h){
+                    sb.append(" ");
+                }
+                System.out.print(count[i]+sb.toString());
+            }
+        }
+        System.out.println("\n------end log current sort result----\n");
+    }
+
     default void show(){
         String[]arrays = getArrays();
         System.out.println("最终排列");

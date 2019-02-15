@@ -29,10 +29,51 @@ public class MSDRadixSort implements IRadixSort{
 
     @Override
     public void sort(){
-        KeyIndex keyIndex = new KeyIndex();
         //取asc码的256个字符的长度
         String[] aux = new String[arrays.length];
-        keyIndex.sort(arrays,aux, 257,0,arrays.length-1,0);
+        sort(arrays,aux, 257,0,arrays.length-1,0);
+    }
+
+    private static int charAt(String s,int i){
+        if(s.length() > i){
+            return s.charAt(i);
+        }else{
+            return -1;
+        }
+    }
+
+    /**
+     * MSD
+     * @param array 字符串数组a
+     * @param R 分组个数R
+     */
+    public void sort(String[] array,  String[] aux ,int R,int lo,int hi,int d) {
+        if(hi <= lo)return;
+        int[] count = new int[R + 2];
+
+        // 第一步，计算出现的频率
+        for (int i = lo; i <= hi; i++) {
+            count[charAt(array[i],d) + 2]++;
+        }
+        log(R, count);
+        //第二步，将频率转换成索引
+        for (int r = 0; r < R+1; r++) {
+            count[r + 1] += count[r];
+        }
+
+        //第三步， 将元素分类
+        for (int i = lo; i <= hi; i++) {
+            aux[count[charAt(array[i],d)+1]++] = array[i];
+        }
+
+        // 第四步，回写
+        for (int i = lo; i <= hi; i++) {
+            array[i] = aux[i-lo];
+        }
+
+        for(int r = 0;r < R;r++){
+            sort(array,aux,R,lo+count[r],lo+count[r+1]-1,d+1);
+        }
     }
 
     public static void main(String[] args) {
